@@ -8,7 +8,6 @@ class CodeRunner {
 	}
 
 	runPython(code) {
-		var response = ""
 		console.log("trans: " + code);
 		fIO.writeFile("tmp.py", 'import sys\n', function(err, fd){
 			if(err) {
@@ -27,6 +26,25 @@ class CodeRunner {
 		});
 
 		return spawn('python', ["tmp.py"]);
+	}
+
+	runJsCode(code) {
+		 fIO.writeFile("tmp.js", '', function(err, fd){
+			if(err) {
+				return console.error(err);
+			}
+			fIO.writeFile('tmp.js', code, {'flag':'a'}, function(err, fd){
+				if(err) {
+					return console.error(err);
+				}
+				fIO.writeFile('tmp.py', '\nsys.stdout.flush()', {'flag':'a'}, function(err, fd){
+					if(err) {
+						return console.error(err);
+					}
+				});
+			});
+		});
+		 return spawn('node', ["tmp.js"]);
 	}
 };
 
