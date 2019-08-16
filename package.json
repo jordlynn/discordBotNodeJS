@@ -2,11 +2,17 @@
   "name": "greeter-bot",
   "version": "1.0.0",
   "description": "Disco Bot",
+  "private": true,
   "main": "bot.js",
   "author": "Jordan",
   "dependencies": {
     "discord.io": "^2.5.3",
     "discord.js": "^11.5.1",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "express": "3.12.0"
+  },
+  "devDependencies": {
+    "mocha": "1.20.1",
+    "supertest": "0.13.0"
   }
 }
