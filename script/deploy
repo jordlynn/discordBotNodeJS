@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd ~/workspace/discordBotNodeJS
+cd ~/workspace/node-app
 
 git pull origin master
 
