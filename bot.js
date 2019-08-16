@@ -34,7 +34,7 @@ client.on('message', msg => {
     msg.content = msg.content.replace('!js', '');
     var res = parserExec.runJsCode(msg.content);
     res.stdout.on('data', (data) => {
-      msg.reply("here" + data.toString());
+      msg.reply(data.toString());
     });
   }
 });
