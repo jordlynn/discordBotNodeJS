@@ -3,6 +3,7 @@ const client = new Discord.Client();
 var logger = require('winston');
 var auth = require('./auth.json');
 const ParserPy = require('./Parser.js');
+const steamServ = require('./steam');
 let parserExec = new ParserPy();
 
 // Configure logger settings
