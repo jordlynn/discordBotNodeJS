@@ -2,9 +2,14 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 var logger = require('winston');
 var auth = require('./auth.json');
+
 const ParserPy = require('./Parser.js');
-const steamServ = require('./steam');
+const steamServ = require('./steamTest.js');
 let parserExec = new ParserPy();
+let steamAccess = new steamServ();
+
+// Init
+steamAccess.initializeUsers();
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -37,7 +42,11 @@ client.on('message', msg => {
     res.stdout.on('data', (data) => {
       msg.reply(data.toString());
     });
-  }
+    }
+    if (msg.content.startsWith('Data ')) {
+        if (msg.content.includes("top dawg") || msg.content.includes("top dog") || msg.content.includes("topdog")) {
+            steamAccess.getTopDawg();
+        }
+    }
 });
-
-client.login(auth.token);
+client.login(auth.DiscordToken);
