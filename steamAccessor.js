@@ -26,20 +26,22 @@ class SteamAccessor {
 
     async getTopDawg() {
         var dawgs = this.ddawgs
+        var listOfNames = "";
+
         for (let steamUser of dawgs) {
-            var games = steam.getUserOwnedGames(steamUser.steamID);
+            var games = await steam.getUserOwnedGames(steamUser.steamID);
             steamUser.totalPlayTime = 0;
-            games.then(gameSummary => {
-                for (let game of gameSummary) {
-                    steamUser.totalPlayTime += game.playTime;
-                }
-                dawgs.sort((a, b) => (a.totalPlayTime < b.totalPlayTime) ? 1 : -1);
-                for (let user of dawgs) {
-                    console.log(user.nickname + " " + user.totalPlayTime);
-                }
-                
-            });
+            
+            for (let game of games) {
+                steamUser.totalPlayTime += game.playTime;
+            }   
         }
+        dawgs.sort((a, b) => (a.totalPlayTime < b.totalPlayTime) ? 1 : -1);
+        for (let user of dawgs) {
+            listOfNames += (user.nickname + " : " + user.totalPlayTime + "\n");
+        }
+        
+        return listOfNames;
 	}
 }
 

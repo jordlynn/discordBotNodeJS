@@ -4,7 +4,7 @@ var logger = require('winston');
 var auth = require('./auth.json');
 
 const ParserPy = require('./Parser.js');
-const steamServ = require('./steamTest.js');
+const steamServ = require('./steamAccessor.js');
 let parserExec = new ParserPy();
 let steamAccess = new steamServ();
 
@@ -45,7 +45,11 @@ client.on('message', msg => {
     }
     if (msg.content.startsWith('Data ')) {
         if (msg.content.includes("top dawg") || msg.content.includes("top dog") || msg.content.includes("topdog")) {
-            steamAccess.getTopDawg();
+            let topDawgCalculation = steamAccess.getTopDawg();
+            topDawgCalculation.then(rankedUsers => {
+              console.log("calculated top dawgs");
+              msg.reply("\n" + rankedUsers);
+            });
         }
     }
 });
